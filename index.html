@@ -122,7 +122,7 @@ footer{text-align:center;color:#7891aa;font-size:12px;margin-top:25px}
 .setTag{display:inline-block;margin:7px 0 9px;padding:6px 10px;border-radius:999px;background:rgba(255,209,102,.11);border:1px solid rgba(255,209,102,.34);color:#ffe5a0;font-weight:950;font-size:12px}
 .topbarIn{flex-wrap:wrap}
 .setFloat{position:fixed;z-index:55;right:14px;top:50%;transform:translateY(-50%);min-width:150px;border:1px solid rgba(255,209,102,.72);border-radius:17px;padding:12px 14px;background:linear-gradient(145deg,#ffe082,#ffab52);color:#2d1c05;font-weight:1000;box-shadow:0 15px 42px rgba(255,171,82,.3);text-align:left}
-.setFloat.locked{background:linear-gradient(145deg,#768391,#536171);color:#eef3f7;border-color:rgba(255,255,255,.24);box-shadow:0 15px 36px rgba(0,0,0,.28)}
+.setFloat.locked{background:linear-gradient(145deg,#ffe082,#ffab52);color:#2d1c05;border-color:rgba(255,209,102,.55);box-shadow:none;opacity:.42;filter:saturate(.65) brightness(.82);cursor:not-allowed}
 .setFloat .small{display:block;font-size:10px;opacity:.82;margin-top:3px;letter-spacing:.2px}
 .settingsGrid{display:grid;gap:15px}
 .rangeRow{display:grid;grid-template-columns:150px 1fr 48px;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
@@ -359,12 +359,10 @@ function updateFloating(){
   const unlocked=canOpenSet(target);
   btn.classList.remove("hidden");
   btn.classList.toggle("locked",!unlocked);
+  btn.disabled=!unlocked;
   btn.dataset.target=String(target);
   btn.dataset.sfx="tap";
-  const prerequisite=target===2?"Set 1":"Set 2";
-  btn.innerHTML=unlocked
-    ? `<span>English UASA Set ${target}</span><span class="small">Unlocked • Open Set ${target}</span>`
-    : `<span>🔒 English UASA Set ${target}</span><span class="small">Score 41/50 in ${prerequisite}</span>`;
+  btn.textContent=`UASA SET ${target}`;
 }
 
 async function checkAccess(code,quiet=false){
